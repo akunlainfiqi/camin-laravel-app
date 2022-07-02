@@ -1,14 +1,16 @@
 # Final Project Oprec MCI 2022
   
 ## Nama Aplikasi
-(deskripsikan aplikasi dan tujuannya)
+
+**Namanya Nyusul**
+<br/>manfaat aplikasi ini adalah membantu blbalbabla
 
 ## Fitur Aplikasi
 List fitur pada aplikasi ini adalah sebagai berikut.
-1. fitur pertama
-2. fitur kedua
-3. ...
-4. ...
+1. Auth
+2. Dashboard
+3. News
+4. Agenda
 
 ## Tampilan Aplikasi
 (screenshot fitur aplikasi)
