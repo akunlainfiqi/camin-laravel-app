@@ -4,10 +4,11 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/inertia-react';
+import AdminMenu from "@/Components/AdminMenu";
 
 export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
+    const role_level = auth.user.permission_level;
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white border-b border-gray-100">
@@ -24,6 +25,7 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+                                <AdminMenu role_level={role_level} className=""></AdminMenu>
                             </div>
                         </div>
 

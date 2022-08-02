@@ -22,10 +22,14 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('admin/home',function (){
+    return Inertia::render('Admin');
+})->middleware(['role_level'])->name('admin test');
 
 require __DIR__.'/auth.php';
