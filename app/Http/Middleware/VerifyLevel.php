@@ -3,10 +3,20 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
-class RolesLevel
+class VerifyLevel
 {
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    protected $auth;
+
+    public function __construct(Guard $auth){
+        $this->auth = $auth;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -14,12 +24,13 @@ class RolesLevel
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+
+    public function handle(Request $request, Closure $next, $level)
     {
-        if(auth()->user()->permission_level >= 3) {
+        if($this->auth->check() && $this->auth->user()->permission_level >= $level) {
             return $next($request);
         }
 
-        return redirect('home')->with('error','no access');
+        return redirect('/')->with('error','no access');
     }
 }

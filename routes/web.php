@@ -16,7 +16,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -30,6 +30,11 @@ Route::get('/dashboard', function () {
 
 Route::get('admin/home',function (){
     return Inertia::render('Admin');
-})->middleware(['role_level'])->name('admin test');
+})->middleware(['level:3'])->name('admin test');
+
+Route::get('admin/bulletin', function(){
+    return Inertia::render('Admin_bulletin');
+})->middleware(['level:3'])->name('bulletin admin');
+
 
 require __DIR__.'/auth.php';
