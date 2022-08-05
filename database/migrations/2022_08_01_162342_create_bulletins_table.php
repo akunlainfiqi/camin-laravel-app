@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('bulletins', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('title');
             $table->longText('text');
-            $table->boolean('pinned');
+            $table->boolean('pinned')->default('0');
+            $table->boolean('show')->default('1');
             $table->foreignId('user_id')->references('id')->on('users');
         });
     }

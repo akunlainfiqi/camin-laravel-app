@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BulletinController;
 use Inertia\Inertia;
 
 /*
@@ -26,15 +27,23 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('admin/home',function (){
-    return Inertia::render('Admin');
-})->middleware(['level:3'])->name('admin test');
+Route::middleware(['auth','level:3'])->prefix('admin')->group(function(){
+    Route::get('/',function (){
+        return Inertia::render('Admin');
+    })->name('admin Home');
 
-Route::get('admin/bulletin', function(){
-    return Inertia::render('Admin_bulletin');
-})->middleware(['level:3'])->name('bulletin admin');
+    Route::prefix('/bulletin')->group(function () {
+        Route::get('/', function () {
+            return Inertia::render('Admin_bulletin');
+        })->name('Admin Bulletin');
+
+        Route::post('/create', [BulletinController::class, 'store']);
+
+        Route::get('/create',[BulletinController::class, 'create']);
+    });
+});
 
 
 require __DIR__.'/auth.php';

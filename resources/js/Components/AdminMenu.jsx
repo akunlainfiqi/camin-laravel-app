@@ -17,7 +17,7 @@ export default function ({role_level}){
                         <Dropdown.Link href={route('home') }method="get">
                             User
                         </Dropdown.Link>
-                        <Dropdown.Link href={route('home') }method="get">
+                        <Dropdown.Link href={route('Admin Bulletin')}method="get">
                             Bulletin
                         </Dropdown.Link>
                         <Dropdown.Link href={route('home') }method="get">

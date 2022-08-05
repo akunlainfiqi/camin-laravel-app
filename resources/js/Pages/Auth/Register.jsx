@@ -9,6 +9,7 @@ import { Head, Link, useForm } from '@inertiajs/inertia-react';
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
+        nrp: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -47,6 +48,20 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="name"
                         isFocused={true}
+                        handleChange={onHandleChange}
+                        required
+                    />
+                </div>
+
+                <div className="mt-4">
+                    <Label forInput="nrp" value="NRP" />
+
+                    <Input
+                        type="text"
+                        name="nrp"
+                        value={data.nrp}
+                        className="mt-1 block w-full"
+                        autoComplete="nrp"
                         handleChange={onHandleChange}
                         required
                     />

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Bulletin extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'text',
+        'user_id',
+        'pinned',
+        'show',
+    ];
+
 }
