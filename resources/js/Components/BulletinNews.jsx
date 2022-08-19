@@ -35,13 +35,8 @@ export default function BulletinNews(props){
             <div>
                 {bulletin.data.map(data=>
                     <div key={data.id}>
-                        <h1> { data.title }</h1>
+                        <h1> { data.title } { data.created_at }</h1>
                         <h1> { data.text }</h1>
-                        <h1> { String(data.pinned) }</h1>
-                        <h1> { String(data.show) }</h1>
-                        <h1> { data.user_id }</h1>
-                        <h1> { data.created_at }</h1>
-                        <h1> { data.updated_at }</h1>
                     </div>
                 )}
             </div>
