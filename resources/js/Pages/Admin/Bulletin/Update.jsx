@@ -6,11 +6,15 @@ import Label from "@/Components/Label";
 import Button from "@/Components/Button"
 import ValidationErrors from "@/Components/ValidationErrors";
 
-export default function Create(props){
-    const { data, setData, post, processing, errors, reset } = useForm({
-        title:'',
-        text:'',
+export default function Update(props){
+    const { data, setData, patch, processing, errors, reset } = useForm({
+        id: props.id,
+        title: props.title,
+        text: props.text,
+        pinned: props.pinned,
+        show: props.show,
     });
+    console.log(props);
 
     const onHandleChange = (event)=>{
         setData(event.target.name, event.target.value);
@@ -18,7 +22,7 @@ export default function Create(props){
 
     const submit=(e)=>{
         e.preventDefault();
-        post('/admin/bulletin/');
+        axios.patch('http://localhost:8000/api/bulletin/'+props.id);
     }
     return(
         <Authenticated
@@ -52,9 +56,9 @@ export default function Create(props){
                     />
                 </div>
                 <div>
-                <Button processing={processing}>
-                    Post
-                </Button>
+                    <Button processing={processing}>
+                        Post
+                    </Button>
                 </div>
             </form>
         </Authenticated>

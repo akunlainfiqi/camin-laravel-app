@@ -19,13 +19,21 @@ class BulletinController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        return Bulletin::all();
+        return Inertia::render('Admin/Bulletin',[
+            "posts"=>Bulletin::orderBy('id','DESC')->paginate(10),
+        ]);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function showPublic(){
+        return Bulletin::all()->where('show',true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -54,29 +62,30 @@ class BulletinController extends Controller
             'user_id' => Auth::id(),
         ]);
 
+
         return redirect('admin/bulletin');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bulletin  $bulletin
+     * @param  INT ID
      * @return Response
      */
-    public function show(Bulletin $bulletin)
+    public function show($id)
     {
-        //
+        return Bulletin::findOrFail($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Bulletin  $bulletin
-     * @return Response
+     * @return \Inertia\Response
      */
     public function edit(Bulletin $bulletin)
     {
-        //
+        return Inertia::render('Admin/Bulletin/Update',$bulletin);
     }
 
     /**
@@ -86,9 +95,12 @@ class BulletinController extends Controller
      * @param  \App\Models\Bulletin  $bulletin
      * @return Response
      */
-    public function update(UpdateBulletinRequest $request, Bulletin $bulletin)
+    public function update(Bulletin $bulletin, UpdateBulletinRequest $request)
     {
-        //
+        $bulletin->update(
+            $request->validated()
+        );
+        return Redirect::back;
     }
 
     /**
@@ -99,6 +111,7 @@ class BulletinController extends Controller
      */
     public function destroy(Bulletin $bulletin)
     {
-        //
+        $bulletin->delete();
+        return Redirect('admin.bulletin.index');
     }
 }

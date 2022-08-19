@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BulletinAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/',[\App\Http\Controllers\BulletinController::class,'index']);
+//Route::get('bulletin',[BulletinController::class,'showPublic']);
+Route::resource('bulletin', BulletinAPIController::class);
+//Route::middleware(['auth','level:3'])->prefix('admin')->group(function(){
+//    Route::resource('bulletin',BulletinAPIController::class);
+//});

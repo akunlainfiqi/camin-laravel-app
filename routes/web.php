@@ -32,18 +32,15 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth','level:3'])->prefix('admin')->group(function(){
     Route::get('/',function (){
         return Inertia::render('Admin');
-    })->name('admin Home');
+    })->name('Admin Home');
 
-    Route::prefix('/bulletin')->group(function () {
-        Route::get('/', function () {
-            return Inertia::render('Admin_bulletin');
-        })->name('Admin Bulletin');
-
-        Route::post('/create', [BulletinController::class, 'store']);
-
-        Route::get('/create',[BulletinController::class, 'create']);
-    });
+    Route::resource('bulletin',BulletinController::class,['as'=>'admin']);
+//    Route::prefix('/bulletin')->group(function () {
+//        Route::get('/', function () {
+//            return Inertia::render('Admin_bulletin');
+//        })->name('Admin Bulletin');
+//
+//    });
 });
-
 
 require __DIR__.'/auth.php';
