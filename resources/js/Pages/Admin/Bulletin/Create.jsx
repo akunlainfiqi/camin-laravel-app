@@ -29,7 +29,7 @@ export default function Create(props){
 
             <ValidationErrors errors={errors}/>
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 space-y-4">
                 <div>
                     <Label forInput="title" value="Title"/>
                     <Input

@@ -33,8 +33,8 @@ Route::middleware(['auth','level:3'])->prefix('admin')->group(function(){
     Route::get('/',function (){
         return Inertia::render('Admin');
     })->name('Admin Home');
-
-    Route::resource('bulletin',BulletinController::class,['as'=>'admin']);
+    Route::put('bulletin/{id}', 'App\Http\Controllers\BulletinController@update');
+    Route::resource('bulletin',BulletinController::class,['as'=>'admin','except'=>'update']);
 //    Route::prefix('/bulletin')->group(function () {
 //        Route::get('/', function () {
 //            return Inertia::render('Admin_bulletin');

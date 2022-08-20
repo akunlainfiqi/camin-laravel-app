@@ -11,7 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class BulletinController extends Controller
@@ -95,12 +95,12 @@ class BulletinController extends Controller
      * @param  \App\Models\Bulletin  $bulletin
      * @return Response
      */
-    public function update(Bulletin $bulletin, UpdateBulletinRequest $request)
+    public function update(Request $request, $id)
     {
-        $bulletin->update(
-            $request->validated()
-        );
-        return Redirect::back;
+        $bulletin = Bulletin::findOrFail($id);
+        $bulletin->update($request->toArray());
+        $bulletin->save();
+        return redirect('admin/bulletin');
     }
 
     /**
@@ -109,9 +109,10 @@ class BulletinController extends Controller
      * @param  \App\Models\Bulletin  $bulletin
      * @return Response
      */
-    public function destroy(Bulletin $bulletin)
+    public function destroy($id)
     {
-        $bulletin->delete();
-        return Redirect('admin.bulletin.index');
+        $bulletin = Bulletin::findOrFail($id);
+        $bulletin->delete($id);
+        return $bulletin->delete($id);
     }
 }

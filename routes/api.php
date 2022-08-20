@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Route::get('bulletin',[BulletinController::class,'showPublic']);
 Route::resource('bulletin', BulletinAPIController::class);
+Route::put('admin/bulletin/{id}', "App\Http\Controllers\BulletinAPIController@update");
 //Route::middleware(['auth','level:3'])->prefix('admin')->group(function(){
 //    Route::resource('bulletin',BulletinAPIController::class);
 //});
